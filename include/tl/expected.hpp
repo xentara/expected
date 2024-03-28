@@ -1544,35 +1544,35 @@ public:
 #endif
 #if defined(TL_EXPECTED_CXX14) && !defined(TL_EXPECTED_GCC49) &&               \
     !defined(TL_EXPECTED_GCC54) && !defined(TL_EXPECTED_GCC55)
-  template <class F> TL_EXPECTED_11_CONSTEXPR auto transform_or(F &&f) & {
+  template <class F> TL_EXPECTED_11_CONSTEXPR auto transform_error(F &&f) & {
     return map_error_impl(*this, std::forward<F>(f));
   }
-  template <class F> TL_EXPECTED_11_CONSTEXPR auto transform_or(F &&f) && {
+  template <class F> TL_EXPECTED_11_CONSTEXPR auto transform_error(F &&f) && {
     return map_error_impl(std::move(*this), std::forward<F>(f));
   }
-  template <class F> constexpr auto transform_or(F &&f) const & {
+  template <class F> constexpr auto transform_error(F &&f) const & {
     return map_error_impl(*this, std::forward<F>(f));
   }
-  template <class F> constexpr auto transform_or(F &&f) const && {
+  template <class F> constexpr auto transform_error(F &&f) const && {
     return map_error_impl(std::move(*this), std::forward<F>(f));
   }
 #else
   template <class F>
   TL_EXPECTED_11_CONSTEXPR decltype(map_error_impl(std::declval<expected &>(),
                                                    std::declval<F &&>()))
-  transform_or(F &&f) & {
+  transform_error(F &&f) & {
     return map_error_impl(*this, std::forward<F>(f));
   }
   template <class F>
   TL_EXPECTED_11_CONSTEXPR decltype(map_error_impl(std::declval<expected &&>(),
                                                    std::declval<F &&>()))
-  transform_or(F &&f) && {
+  transform_error(F &&f) && {
     return map_error_impl(std::move(*this), std::forward<F>(f));
   }
   template <class F>
   constexpr decltype(map_error_impl(std::declval<const expected &>(),
                                     std::declval<F &&>()))
-  transform_or(F &&f) const & {
+  transform_error(F &&f) const & {
     return map_error_impl(*this, std::forward<F>(f));
   }
 
@@ -1580,7 +1580,7 @@ public:
   template <class F>
   constexpr decltype(map_error_impl(std::declval<const expected &&>(),
                                     std::declval<F &&>()))
-  transform_or(F &&f) const && {
+  transform_error(F &&f) const && {
     return map_error_impl(std::move(*this), std::forward<F>(f));
   }
 #endif
